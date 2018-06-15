@@ -131,8 +131,8 @@ class Blossom_Recipe_Admin {
 			'remove_featured_image' => __( 'Remove featured image', 'blossom-recipe' ),
 			'use_featured_image'    => __( 'Use as featured image', 'blossom-recipe' ),
 			'insert_into_item'      => __( 'Insert into Blossom Recipe', 'blossom-recipe' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this Blossom Recipe', 'blossom-recipe' ),
-			'items_list'            => __( ' Blossom Recipes list', 'blossom-recipe' ),
+			'uploaded_to_this_item' => __( 'Uploaded to Blossom Recipe', 'blossom-recipe' ),
+			'items_list'            => __( 'Blossom Recipes list', 'blossom-recipe' ),
 			'items_list_navigation' => __( 'Blossom Recipes list navigation', 'blossom-recipe' ),
 			'filter_items_list'     => __( 'Filter Blossom Recipes list', 'blossom-recipe' ),
 	);
@@ -157,7 +157,7 @@ class Blossom_Recipe_Admin {
 		'rewrite'               => array('slug' => 'blossom-recipe'),
 	);
 		register_post_type( 'blossom-recipe', $args );
-	    flush_rewrite_rules();
+	    //flush_rewrite_rules();
 		
 	}
 
@@ -189,7 +189,7 @@ class Blossom_Recipe_Admin {
 					'show_ui'           => true,
 					'show_admin_column' => true,
 					'show_in_nav_menus' => true,
-					'rewrite'           => array( 'slug' => 'blossom-recipe', 'hierarchical' => true ),
+					'rewrite'           => array( 'slug' => 'recipe-category', 'hierarchical' => true ),
 				);
 				register_taxonomy( 'blossom_recipe_categories', array('blossom-recipe'), $args );
 	}

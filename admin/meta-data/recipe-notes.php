@@ -12,6 +12,30 @@
 
 ?>
  
-<div class="inside hidden">
-    <p>This is where the Recipe Notes content will reside.</p>
+<div id="blossom-recipe-tab-recipe-notes" class="inside hidden">
+
+    <div class="br-recipe-notes">
+
+    	<?php $notes= get_post_meta( get_the_ID(), 'br_recipe', true );
+    	$content = '';
+    	
+    	if(isset($notes['notes'])) 
+        {
+                $content = $notes['notes']; 
+    			print_r($content);
+        }?>
+
+    <h4><?php _e( 'Recipe notes', 'blossom-recipe' ) ?></h4>
+    
+    <?php
+    $options = array(
+        'textarea_rows' => 7,
+        'textarea_name' => 'br_recipe[notes]',
+    );
+
+    wp_editor( $content, 'br_recipe',  $options );
+
+    ?>
+
+</div>
 </div>

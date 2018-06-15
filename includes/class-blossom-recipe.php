@@ -66,6 +66,7 @@ class Blossom_Recipe {
 	 */
 	private $meta_box;
 
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -132,6 +133,17 @@ class Blossom_Recipe {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-blossom-recipe-public.php';
+
+		/**
+		 * The class responsible for handling blossom-recipe post type single post and archieve templates.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blossom-recipe-templates.php';
+
+		/**
+		 * The class responsible for defining all hooks that display meta data in the public-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blossom-recipe-hook-functions.php';
 
 		$this->loader = new Blossom_Recipe_Loader();
 

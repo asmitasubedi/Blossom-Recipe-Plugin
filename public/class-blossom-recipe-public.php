@@ -98,6 +98,17 @@ class Blossom_Recipe_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blossom-recipe-public.js', array( 'jquery' ), $this->version, false );
 
+		wp_enqueue_script('math_script', plugin_dir_url( __FILE__ ) . 'js/math.js', array( 'jquery' ), $this->version, false );
+
+		wp_enqueue_script('jquery-min-ui', "http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js");
+		
+		wp_enqueue_script('jquery-min', "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js");
+
+		wp_localize_script( $this->plugin_name, 'AdjustServings', array(
+		    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		    'security' => wp_create_nonce( 'recipe_adjust_servings' )
+		  ));
+
 	}
 
 }

@@ -60,6 +60,77 @@
             });
         });
 
+        /**
+		 * When Add an ingredient button is clicked, clones the last row elements. 
+		 Also provides the proper ID and name attributes so that the information can be serialized.
+		 *
+		 */
+
+		$('#br_recipe_ingredients tr.br_ingredients:first').find('span.br_ingredients_delete').hide();
+    	$('#br_recipe_instructions tr.br_instructions:first').find('span.br_instructions_delete').hide();
+
+        $('#br-add-ingredients').on('click', function(e){
+	        e.preventDefault();
+	        addIngredient();
+    	});
+
+    	/**
+		 * When Add an instruction button is clicked, clones the last row elements. 
+		 Also provides the proper ID and name attributes so that the information can be serialized.
+		 *
+		 */
+
+        $('#br-add-instructions').on('click', function(e){
+	        e.preventDefault();
+	        addInstruction();
+    	});
+
+		$('.br_instructions_add_image').on('click', function(e) {
+
+			e.preventDefault();
+
+			var button = jQuery(this);
+
+	        var image = button.siblings('.br_instructions_image');
+	        var preview = button.siblings('.br_instructions_thumbnail');
+ 
+		    var br_send_attachment = wp.media.editor.send.attachment;
+		 
+		    wp.media.editor.send.attachment = function(props, attachment) {
+		 
+		        jQuery(image).val(attachment.id).trigger('change');
+				jQuery(preview).attr('src',attachment.url);
+		        wp.media.editor.send.attachment = br_send_attachment;
+	    	}
+	 
+		    wp.media.editor.open();
+		 
+		    return false;
+		
+		});
+
+		$('.br_instructions_remove_image').on('click', function(e) {
+	        e.preventDefault();
+
+	        var button = jQuery(this);
+
+	        button.siblings('.br_instructions_image').val('').trigger('change');
+	        button.siblings('.br_instructions_thumbnail').attr('src', '');
+    	});
+
+    	$('.br_instructions_delete').on('click', function(){
+
+	        jQuery(this).parents('tr').remove();
+
+	    });
+
+	    $('.br_ingredients_delete').on('click', function(){
+        	
+        	jQuery(this).parents('tr').remove();
+      
+    	});
+
+
 	 });
 
 	 /**
@@ -78,3 +149,64 @@
 	 */
 
 })( jQuery );
+
+function addIngredient()
+{
+        var no_ingredients = jQuery('#br_recipe_ingredients tr.br_ingredients').length;
+        var last_row = jQuery('#br_recipe_ingredients tr:last');
+        var last_ingredient = jQuery('#br_recipe_ingredients tr.br_ingredients:last');
+
+        last_ingredient.find('input').attr('placeholder','');
+        var clone_ingredient = last_ingredient.clone(true);
+
+        clone_ingredient
+            .insertAfter(last_row)
+            .find('input, select').val('')
+            .attr('name', function(index, name) {
+                return name.replace(/(\d+)/, no_ingredients);
+            })
+            .attr('id', function(index, id) {
+                return id.replace(/(\d+)/, no_ingredients);
+            });
+
+        clone_ingredient.find('span.br_ingredients_delete').show();
+             
+        jQuery('#br_recipe_ingredients tr:last .br_ingredients_quantity').focus();
+}
+
+function addInstruction()
+{
+        var no_instructions = jQuery('#br_recipe_instructions tr.br_instructions').length;
+        var last_row = jQuery('#br_recipe_instructions tr:last');
+        var last_instruction = jQuery('#br_recipe_instructions tr.br_instructions:last');
+
+        last_instruction.find('input').attr('placeholder','');
+        var clone_instruction = last_instruction.clone(true);
+
+        clone_instruction
+            .insertAfter(last_row)
+            .find('textarea').val('')
+            .attr('name', function(index, name) {
+                return name.replace(/(\d+)/, no_instructions);
+            })
+            .attr('id', function(index, id) {
+                return id.replace(/(\d+)/, no_instructions);
+            });
+
+        clone_instruction
+            .find('.br_instructions_image').val('')
+
+        clone_instruction
+            .find('.br_instructions_thumbnail').attr('src', '')
+
+        clone_instruction
+            .find('.br_instructions_image')
+            .attr('name', function(index, name) {
+                return name.replace(/(\d+)/, no_instructions);
+            });
+
+        
+        clone_instruction.find('span.br_instructions_delete').show();  
+           
+        jQuery('#br_recipe_instructions tr:last .br_instructions_description').focus();
+}

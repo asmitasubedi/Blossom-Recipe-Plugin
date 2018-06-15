@@ -37,6 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'BLOSSOM_RECIPE_BASE_PATH', dirname( __FILE__ ) );
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define('BLOSSOM_RECIPE_URL', plugins_url('',__FILE__));
+define( 'BLOSSOM_RECIPE_TEMPLATE_PATH', BLOSSOM_RECIPE_BASE_PATH.'/includes/templates' );
 
 /**
  * The code that runs during plugin activation.
